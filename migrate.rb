@@ -15,6 +15,7 @@ ActiveRecord::Schema.define do
   create_table :players, if_not_exists: true do |t|
     t.string :first_name
     t.string :last_name
+    t.integer :nhl_id
     t.integer :pos
     t.integer :gp
     t.float :toi
@@ -37,4 +38,9 @@ ActiveRecord::Schema.define do
     t.float :ga
     t.float :sv
   end
+
+  change_table :players do |t|
+    t.float :aav, if_not_exists: true
+  end
+
 end

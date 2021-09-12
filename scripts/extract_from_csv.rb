@@ -58,5 +58,5 @@ end
 
 raw_data.each do |row|
   player = process_doms_data(row, false)
-  player.save
+  player.save if player
 end

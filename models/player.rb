@@ -4,12 +4,14 @@ class Player < ActiveRecord::Base
 
   enum pos: [:forward, :defence, :goalie, :rover]
 
+
+
   def first_line_average
     self.g * 10 + self.a * 10 + self.sog * 0.5
   end
 
   def third_line_average
-    
+
   end
 
   def fourth_line_average
@@ -30,5 +32,9 @@ class Player < ActiveRecord::Base
 
   def goalie_average
 
+  end
+
+  def capfriendly_case
+    (self.first_name.downcase + " " + self.last_name.downcase).gsub(" ", "-")
   end
 end
