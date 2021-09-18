@@ -43,4 +43,16 @@ ActiveRecord::Schema.define do
     t.float :aav, if_not_exists: true
   end
 
+  change_table :players do |t|
+    t.float :estoi, if_not_exists: true
+    t.float :pptoi, if_not_exists: true
+    t.float :shtoi, if_not_exists: true
+  end
+
+  create_table :records, if_not_exists: true do |t|
+    t.integer :cache_id
+    t.integer :record_type
+    t.text :store
+  end
+
 end
