@@ -57,21 +57,15 @@ ActiveRecord::Schema.define do
 
   change_table :players do |t|
     t.float :first_line_average, if_not_exists: true
-    t.float :first_centre_average, if_not_exists: true
     t.float :third_line_average, if_not_exists: true
-    t.float :third_centre_average, if_not_exists: true
     t.float :fourth_line_average, if_not_exists: true
-    t.float :fourth_centre_average, if_not_exists: true
     t.float :first_pair_average, if_not_exists: true
     t.float :second_pair_average, if_not_exists: true
     t.float :third_pair_average, if_not_exists: true
     t.float :goalie_average, if_not_exists: true
     t.float :first_line_above_repl, if_not_exists: true
-    t.float :first_centre_above_repl, if_not_exists: true
     t.float :third_line_above_repl, if_not_exists: true
-    t.float :third_centre_above_repl, if_not_exists: true
     t.float :fourth_line_above_repl, if_not_exists: true
-    t.float :fourth_centre_above_repl, if_not_exists: true
     t.float :first_pair_above_repl, if_not_exists: true
     t.float :second_pair_above_repl, if_not_exists: true
     t.float :third_pair_above_repl, if_not_exists: true

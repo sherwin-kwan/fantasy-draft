@@ -3,11 +3,13 @@ require "active_record"
 class Player < ActiveRecord::Base
 
   enum pos: [:forward, :defence, :goalie, :rover]
-  enum role: [:first_line_average, :first_centre_average,
-    :third_line_average, :third_centre_average,
-    :fourth_line_average, :fourth_centre_average,
-    :first_pair_average, :second_pair_average,
-    :third_pair_average, :goalie_average]
+  enum role: [:first_line_average,
+    :third_line_average,
+    :fourth_line_average,
+    :first_pair_average, 
+    :second_pair_average,
+    :third_pair_average, 
+    :goalie_average]
 
   scope :caphit_missing, -> {
     all.where('aav IS NULL')
@@ -20,16 +22,13 @@ class Player < ActiveRecord::Base
   class << self
 
     def above_repl_roles
-      [:first_line_above_repl, :first_centre_above_repl,
-      :third_line_above_repl, :third_centre_above_repl,
-      :fourth_line_above_repl, :fourth_centre_above_repl,
-      :first_pair_above_repl, :second_pair_above_repl,
-      :third_pair_above_repl, :goalie_above_repl]
-    end
-
-    def role_positions
-      [[:first_line_average, 4], [:first_centre_average, 2], [:third_line_average, 2], [:third_centre_average, 1], [:fourth_line_average, 2], [:fourth_centre_average, 1],
-      [:first_pair_average, 2], [:second_pair_average, 2], [:third_pair_average, 2], [:goalie_average, 2]]
+      [:first_line_above_repl,
+      :third_line_above_repl,
+      :fourth_line_above_repl,
+      :first_pair_above_repl, 
+      :second_pair_above_repl,
+      :third_pair_above_repl, 
+      :goalie_above_repl]
     end
   end
 end
