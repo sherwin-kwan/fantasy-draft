@@ -74,4 +74,8 @@ ActiveRecord::Schema.define do
     t.float :points_above_repl, if_not_exists: true
   end
 
+  change_table :players do |t|
+    t.string :team, if_not_exists: true
+  end
+
 end

@@ -1,5 +1,7 @@
 require "faraday"
+require "./models/player.rb"
 require "active_record"
+require "pry"
 
 res = Faraday.get("https://statsapi.web.nhl.com/api/v1/teams?expand=team.roster")
 data = JSON.parse(res.body)
@@ -8,6 +10,7 @@ data["teams"].each do |team|
   players_on_team = team["roster"]["roster"].map do |person|
     { first_name: person["person"]["fullName"].split(" ").first,
      last_name: person["person"]["fullName"].split(" ").slice(1..-1).join(" "),
+     team: team["abbreviation"],
      nhl_id: person["person"]["id"] }
   end
   players.concat(players_on_team)
@@ -20,5 +23,6 @@ Player.where(nhl_id: nil).each do |player|
     try_player = try_again.first if try_again.length == 1
   end
   player.nhl_id = try_player[:nhl_id] if try_player
+  player.team = try_player[:team] if try_player
   player.save
 end
