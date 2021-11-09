@@ -26,6 +26,11 @@ end
   data = JSON.parse(data)
   data["data"].each do |pl|
     player = Player.where(nhl_id: pl["playerId"].to_i).first
+    # Correct for issues e.g. if a player can't be found in NHL database due to being sent to minors or on injured reserve
+    if !player
+      player = Player.where(first_name: pl["skaterFullName"].split(" ")[0]).where(last_name: pl["skaterFullName"].split(" ")[1]).first
+      player.nhl_id = pl["playerId"] if player
+    end
     if player
       player.tk = (player.toi / (pl["timeOnIcePerGame"] / 60) * (pl["takeaways"].to_f / pl["gamesPlayed"].to_i)).round(2)
       player.gv = (player.toi / (pl["timeOnIcePerGame"] / 60) * (pl["giveaways"].to_f / pl["gamesPlayed"].to_i)).round(2)
