@@ -89,11 +89,11 @@ class Player
     {
       first_line_average: 9,
       third_line_average: 6,
-      fourth_line_average: 4,
+      fourth_line_average: 6,
       first_pair_average: 6,
       second_pair_average: 6,
       third_pair_average: 6,
-      goalie_average: 8
+      goalie_average: 7
     }
     end
 

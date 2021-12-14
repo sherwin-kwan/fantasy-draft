@@ -1,7 +1,7 @@
 require "csv"
 require "./models/player.rb"
 
-source_file = File.join(File.dirname(__FILE__), "../../projections_20211108.csv")
+source_file = File.join(File.dirname(__FILE__), "../../projections_20211213.csv")
 raw_data = CSV.parse(File.read(source_file), headers: true)
 
 def parse_position(str)
@@ -31,7 +31,7 @@ def process_doms_data(player_data, overwrite)
   last_name = player_data["NAME"].split(" ").slice(1..-1).join(" ")
   # If the player already exists in the db, overwrite them unless asked not to
   try_player = Player.where(first_name: first_name).where(last_name: last_name).first
-  return if try_player && !overwrite
+  return if try_player && !overwrite || !player_data["POS"]
   output = try_player || Player.new
   output.first_name = first_name
   output.last_name = last_name
