@@ -90,10 +90,10 @@ class Player
       first_line_average: 9,
       third_line_average: 6,
       fourth_line_average: 6,
-      first_pair_average: 6,
-      second_pair_average: 6,
-      third_pair_average: 6,
-      goalie_average: 7
+      first_pair_average: 7,
+      second_pair_average: 7,
+      third_pair_average: 7,
+      goalie_average: 8
     }
     end
 
@@ -146,7 +146,7 @@ class Player
         # Let's say there are 4 spots for first line wingers. Then 32 players will be claimed above replacement level for this position. 
         # Find the score of the 33rd player to determine a new guess for replacement level.
         puts "For role #{role.name}, there are #{players_in_this_role.where("points_above_repl > 0").length.to_s} players above replacement"
-        if players_in_this_role.length > NUM_MANAGERS * role.spots
+        if players_in_this_role.length > (NUM_MANAGERS * role.spots + 1)
           deviation = players_in_this_role[NUM_MANAGERS * role.spots].points_above_repl # How many points the replacement level is off from what it "should" be
           next if deviation.abs < 0.02
           if deviation.abs > 0.08

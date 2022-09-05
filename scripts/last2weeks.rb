@@ -1,7 +1,7 @@
 require "csv"
 
-data1 = CSV.parse(File.read("./export_20211206.csv"), headers: false)
-data2 = CSV.parse(File.read("./export.csv"), headers: false)
+data1 = CSV.parse(File.read("real_20220309.csv"), headers: false)
+data2 = CSV.parse(File.read("export.csv"), headers: false)
 
 data_new = data2.each do |player|
   corresponding_player = data1.filter{|pl| pl[0] == player[0]}.first
@@ -14,7 +14,7 @@ data_new = data2.each do |player|
   player[6] ||= 0
 end
 
-data_new.sort{|a, b| b[2] <=> a[2]}.each do |pl|
+data_new.sort{|a, b| b[6] <=> a[6]}.each do |pl|
   p pl
 end
 

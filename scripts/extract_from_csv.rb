@@ -1,7 +1,7 @@
 require "csv"
 require "./models/player.rb"
 
-source_file = File.join(File.dirname(__FILE__), "../../projections_20211213.csv")
+source_file = File.join(File.dirname(__FILE__), "../../projections_20220321.csv")
 raw_data = CSV.parse(File.read(source_file), headers: true)
 
 def parse_position(str)

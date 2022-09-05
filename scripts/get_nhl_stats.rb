@@ -32,8 +32,8 @@ end
       player.nhl_id = pl["playerId"] if player
     end
     if player
-      player.tk = (player.toi / (pl["timeOnIcePerGame"] / 60) * (pl["takeaways"].to_f / pl["gamesPlayed"].to_i)).round(2)
-      player.gv = (player.toi / (pl["timeOnIcePerGame"] / 60) * (pl["giveaways"].to_f / pl["gamesPlayed"].to_i)).round(2)
+      player.tk = pl["gamesPlayed"] < 10 ? 0 : (player.toi / (pl["timeOnIcePerGame"] / 60) * (pl["takeaways"].to_f / pl["gamesPlayed"].to_i)).round(2)
+      player.gv = pl["gamesPlayed"] < 10 ? 0 : (player.toi / (pl["timeOnIcePerGame"] / 60) * (pl["giveaways"].to_f / pl["gamesPlayed"].to_i)).round(2)
       player.save
     else
       puts "Unable to find player #{pl["skaterFullName"]} - #{pl["playerId"]} in spreadsheet"
