@@ -3,6 +3,7 @@ require "./models/player.rb"
 require "active_record"
 require "pry"
 
+Player.where(year: nil).destroy_all 
 res = Faraday.get("https://statsapi.web.nhl.com/api/v1/teams?expand=team.roster")
 data = JSON.parse(res.body)
 players = []
@@ -15,7 +16,7 @@ data["teams"].each do |team|
   end
   players.concat(players_on_team)
 end
-Player.where(year: 2022).each do |player|
+Player.where(nhl_id: nil, year: 2022).each do |player|
   try_player = players.filter { |pl| pl[:first_name].downcase == player.first_name.downcase && pl[:last_name].downcase == player.last_name.downcase }&.first
   # Handle players with variant first names (e.g. "Mitch" vs. "Mitchell") - if there's only one player with that last name it's not ambiguous
   if !try_player

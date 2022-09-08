@@ -18,10 +18,12 @@ end
 
 class Player
 
-  NUM_MANAGERS = 8
+  NUM_MANAGERS = 7
 
   def calculate_role_points
     begin
+      self.fow ||= 0
+      self.fol ||= 0
       case self.pos
       when "forward"
         self.tk ||= 0
@@ -29,7 +31,7 @@ class Player
         self.shp ||= 0
         faceoff_score = [0, (self.fow - self.fol) * 0.5].max
         self.first_line_average = self.goals * 10 + self.assists * 10 + self.shots * 0.5 + self.shp * 10 + faceoff_score
-        self.third_line_average = self.goals * 5 + self.assists * 5 + self.hits * 1.5 + self.blocks * 2 + self.tk * 2 - self.gv * 2 + self.shp * 10 + faceoff_score
+        self.third_line_average = self.goals * 6 + self.assists * 6 + self.hits * 1.5 + self.blocks * 2 + self.tk * 2 - self.gv * 2 + self.shp * 10 + faceoff_score
         self.fourth_line_average = self.goals * 2 + self.assists * 2 + self.hits * 2 + self.blocks * 2.5 + self.tk * 2.5 - self.gv * 2.5 + self.shp * 10 + faceoff_score
         self.first_pair_average = self.second_pair_average = self.third_pair_average = self.goalie_average = -1
         self.save

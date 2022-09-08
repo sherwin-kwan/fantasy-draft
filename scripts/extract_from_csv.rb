@@ -9,6 +9,8 @@ def parse_position(str)
     abbr = abbr.strip
     if ["C", "LW", "RW"].include? abbr
       "F"
+    elsif ["LD", "RD"].include? abbr
+      "D"
     else
       abbr
     end
@@ -36,6 +38,7 @@ def process_doms_data(player_data, overwrite)
   output = try_player || Player.new
   output.first_name = first_name
   output.last_name = last_name
+  output.team = player_data["TEAM"]
   output.pos = parse_position(player_data["POS"])
   output.gp = player_data["GP"]
   output.toi = player_data["TOI"]
@@ -60,5 +63,6 @@ end
 
 raw_data.each do |row|
   player = process_doms_data(row, true)
+  player.year = 2022
   player.save if player
 end

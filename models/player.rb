@@ -12,7 +12,7 @@ class Player < ActiveRecord::Base
     :goalie_average]
 
   scope :caphit_missing, -> {
-    all.where('aav IS NULL')
+    all.where('aav IS NULL', year: 2022)
   }
 
   def capfriendly_case
