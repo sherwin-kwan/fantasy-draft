@@ -47,6 +47,7 @@ ActiveRecord::Schema.define do
     t.float :estoi, if_not_exists: true
     t.float :pptoi, if_not_exists: true
     t.float :shtoi, if_not_exists: true
+    t.string :year, if_not_exists: true
   end
 
   create_table :records, if_not_exists: true do |t|
