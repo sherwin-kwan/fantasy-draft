@@ -36,7 +36,7 @@ end
       player.gv = pl["gamesPlayed"] < 10 ? 0 : (player.toi / (pl["timeOnIcePerGame"] / 60) * (pl["giveaways"].to_f / pl["gamesPlayed"].to_i)).round(2)
       player.save
     else
-      puts "Unable to find player #{pl["skaterFullName"]} - #{pl["playerId"]} in spreadsheet"
+      puts "Unable to find NHL player #{pl["skaterFullName"]} - #{pl["playerId"]} in spreadsheet"
     end
   end
 end
@@ -47,9 +47,12 @@ Player.where('nhl_id IS NOT NULL AND shp IS NULL').find_each do |player|
   data = JSON.parse(res.body)
   stats = data["stats"].first["splits"]&.first&.[]("stat")
   if stats
-    player.estoi = stats["evenTimeOnIcePerGame"]&.parse_interval
-    player.pptoi = stats["powerPlayTimeOnIcePerGame"]&.parse_interval
+    player.pptoi ||= stats["powerPlayTimeOnIcePerGame"]&.parse_interval
     player.shtoi = stats["shortHandedTimeOnIcePerGame"]&.parse_interval
+    # player.estoi ||= stats["evenTimeOnIcePerGame"]&.parse_interval
+    if player.toi && player.pptoi && player.shtoi
+      player.estoi = player.toi - player.pptoi - player.shtoi
+    end
     player.shp = stats["shortHandedPoints"].to_f / stats["games"]
     player.save
   end

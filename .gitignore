@@ -2,3 +2,13 @@ database.yml
 .env
 **/*.csv
 **/*.csv#
+.DS_Store
+*.odt
+*.ods
+*.xls
+*.xlsx
+*.xlsx#
+*.ods#
+*.xls#
+*.png
+*.jpg

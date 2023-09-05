@@ -87,13 +87,13 @@ class Player
 
     def replacement_level_init
     {
-      first_line_average: 9,
-      third_line_average: 6,
+      first_line_average: 9.5,
+      third_line_average: 8,
       fourth_line_average: 6,
-      first_pair_average: 7,
-      second_pair_average: 7,
-      third_pair_average: 7,
-      goalie_average: 8
+      first_pair_average: 7.5,
+      second_pair_average: 7.5,
+      third_pair_average: 7.5,
+      goalie_average: 7.5
     }
     end
 

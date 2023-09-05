@@ -1,11 +1,12 @@
 require "csv"
 require "./models/player.rb"
 
-source_file = File.join(File.dirname(__FILE__), "../../projections_20220321.csv")
+source_file = File.join(File.dirname(__FILE__), "../projections/projections_20230905.csv")
 raw_data = CSV.parse(File.read(source_file), headers: true)
 
 def parse_position(str)
-  positions = str.split("/").map do |abbr|
+  positions = str.split(",").map do |abbr|
+    abbr = abbr.strip
     if ["C", "LW", "RW"].include? abbr
       "F"
     else
@@ -38,6 +39,7 @@ def process_doms_data(player_data, overwrite)
   output.pos = parse_position(player_data["POS"])
   output.gp = player_data["GP"]
   output.toi = player_data["TOI"]
+  output.pptoi = player_data["PPTOI"]
   if output.pos == "goalie"
     output.wins = player_data["W"]
     output.shutouts = player_data["SO"]

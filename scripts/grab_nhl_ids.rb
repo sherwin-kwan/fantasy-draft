@@ -15,7 +15,7 @@ data["teams"].each do |team|
   end
   players.concat(players_on_team)
 end
-Player.where(nhl_id: nil).each do |player|
+Player.where(year: 2022).each do |player|
   try_player = players.filter { |pl| pl[:first_name].downcase == player.first_name.downcase && pl[:last_name].downcase == player.last_name.downcase }&.first
   # Handle players with variant first names (e.g. "Mitch" vs. "Mitchell") - if there's only one player with that last name it's not ambiguous
   if !try_player
