@@ -18,7 +18,7 @@ end
 
 class Player
 
-  NUM_MANAGERS = 7
+  NUM_MANAGERS = 6
 
   def calculate_role_points
     begin
@@ -39,10 +39,9 @@ class Player
         self.tk ||= 0
         self.gv ||= 0
         self.shp ||= 0
-        plus_minus_score = self.plus_minus * 2
-        self.first_pair_average = self.goals * 10 + self.assists * 10 + self.shots * 0.5 + self.hits * 0.5 + self.blocks * 1 + self.tk * 1 - self.gv * 1 + plus_minus_score + self.shp * 10
-        self.second_pair_average = self.goals * 6 + self.assists * 6 + self.hits * 1.5 + self.blocks * 2 + self.tk * 2 - self.gv * 2 + plus_minus_score + self.shp * 10
-        self.third_pair_average = self.goals * 2 + self.assists * 2 + self.hits * 2 + self.blocks * 2.5 + self.tk * 2.5 - self.gv * 2.5 + plus_minus_score + self.shp * 10
+        self.first_pair_average = self.goals * 10 + self.assists * 10 + self.shots * 0.5 + self.hits * 1 + self.blocks * 1.5 + self.tk * 1.5 - self.gv * 1.5 + self.shp * 10
+        self.second_pair_average = self.goals * 6 + self.assists * 6 + self.hits * 2 + self.blocks * 2.5 + self.tk * 2.5 - self.gv * 2.5 + self.shp * 10
+        self.third_pair_average = self.goals * 2 + self.assists * 2 + self.hits * 2.5 + self.blocks * 3 + self.tk * 3 - self.gv * 3 + self.shp * 10
         self.first_line_average = self.third_line_average = self.fourth_line_average = self.goalie_average = -1
         self.save
       when "goalie"
@@ -54,10 +53,9 @@ class Player
         self.first_line_average = self.goals * 10 + self.assists * 10 + self.shots * 0.5 + self.shp * 10 + faceoff_score
         self.third_line_average = self.goals * 5 + self.assists * 5 + self.hits * 1.5 + self.blocks * 2 + self.tk * 2 - self.gv * 2 + self.shp * 10 + faceoff_score
         self.fourth_line_average = self.goals * 2 + self.assists * 2 + self.hits * 2 + self.blocks * 2.5 + self.tk * 2.5 - self.gv * 2.5 + self.shp * 10 + faceoff_score
-        plus_minus_score = self.plus_minus * 2
-        self.first_pair_average = self.goals * 10 + self.assists * 10 + self.shots * 0.5 + self.hits * 0.5 + self.blocks * 1 + self.tk * 1 - self.gv * 1 + plus_minus_score + self.shp * 10
-        self.second_pair_average = self.goals * 6 + self.assists * 6 + self.hits * 1.5 + self.blocks * 2 + self.tk * 2 - self.gv * 2 + plus_minus_score + self.shp * 10
-        self.third_pair_average = self.goals * 2 + self.assists * 2 + self.hits * 2 + self.blocks * 2.5 + self.tk * 2.5 - self.gv * 2.5 + plus_minus_score + self.shp * 10
+        self.first_pair_average = self.goals * 10 + self.assists * 10 + self.shots * 0.5 + self.hits * 0.5 + self.blocks * 1 + self.tk * 1 - self.gv * 1 + self.shp * 10
+        self.second_pair_average = self.goals * 6 + self.assists * 6 + self.hits * 1.5 + self.blocks * 2 + self.tk * 2 - self.gv * 2 + self.shp * 10
+        self.third_pair_average = self.goals * 2 + self.assists * 2 + self.hits * 2 + self.blocks * 2.5 + self.tk * 2.5 - self.gv * 2.5 + self.shp * 10
         self.goalie_average = -1
         self.save
       end
@@ -77,8 +75,8 @@ class Player
 
     def role_positions
       {
-        first_line_average: 9,
-        third_line_average: 4,
+        first_line_average: 10,
+        third_line_average: 5,
         fourth_line_average: 5,
         first_pair_average: 3,
         second_pair_average: 3,
@@ -89,13 +87,13 @@ class Player
 
     def replacement_level_init
     {
-      first_line_average: 9.5,
+      first_line_average: 10,
       third_line_average: 8,
-      fourth_line_average: 6,
-      first_pair_average: 7.5,
-      second_pair_average: 7.5,
-      third_pair_average: 7.5,
-      goalie_average: 7.5
+      fourth_line_average: 7,
+      first_pair_average: 9,
+      second_pair_average: 9,
+      third_pair_average: 9,
+      goalie_average: 9
     }
     end
 

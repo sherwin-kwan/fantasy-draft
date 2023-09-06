@@ -19,7 +19,7 @@ end
   if Record.where(cache_id: i).where(record_type: "real_time").count > 0
     data = Record.where(cache_id: i).first.store
   else
-    res = Faraday.get("https://api.nhle.com/stats/rest/en/skater/realtime?isAggregate=false&isGame=false&sort=[{%22property%22:%22playerId%22,%22direction%22:%22ASC%22}]&start=#{(i * 100).to_s}&limit=100&factCayenneExp=gamesPlayed%3E=1&cayenneExp=gameTypeId=2%20and%20seasonId%3C=20212022%20and%20seasonId%3E=20212022")
+    res = Faraday.get("https://api.nhle.com/stats/rest/en/skater/realtime?isAggregate=false&isGame=false&sort=[{%22property%22:%22playerId%22,%22direction%22:%22ASC%22}]&start=#{(i * 100).to_s}&limit=100&factCayenneExp=gamesPlayed%3E=1&cayenneExp=gameTypeId=2%20and%20seasonId%3C=20222023%20and%20seasonId%3E=20222023")
     data = res.body
     Record.create({cache_id: i, record_type: 0, store: data})
   end
@@ -44,7 +44,7 @@ end
 
 # Ice time and shorthanded points
 Player.where('nhl_id IS NOT NULL and shp IS NULL').find_each do |player|
-  res = Faraday.get("https://statsapi.web.nhl.com/api/v1/people/#{player.nhl_id}/stats?stats=statsSingleSeason&season=20212022")
+  res = Faraday.get("https://statsapi.web.nhl.com/api/v1/people/#{player.nhl_id}/stats?stats=statsSingleSeason&season=20222023")
   data = JSON.parse(res.body)
   stats = data["stats"].first["splits"]&.first&.[]("stat")
   if stats
@@ -66,7 +66,7 @@ Record.where(record_type: "faceoffs").destroy_all
   if Record.where(cache_id: i).where(record_type: "faceoffs").count > 0
     data = Record.where(cache_id: i).first.store
   else
-    res = Faraday.get("https://api.nhle.com/stats/rest/en/skater/faceoffwins?isAggregate=false&isGame=false&sort=[{%22property%22:%22playerId%22,%22direction%22:%22ASC%22}]&start=#{(i * 100).to_s}&limit=100&factCayenneExp=gamesPlayed%3E=1&cayenneExp=gameTypeId=2%20and%20seasonId%3C=20212022%20and%20seasonId%3E=20212022")
+    res = Faraday.get("https://api.nhle.com/stats/rest/en/skater/faceoffwins?isAggregate=false&isGame=false&sort=[{%22property%22:%22playerId%22,%22direction%22:%22ASC%22}]&start=#{(i * 100).to_s}&limit=100&factCayenneExp=gamesPlayed%3E=1&cayenneExp=gameTypeId=2%20and%20seasonId%3C=20222023%20and%20seasonId%3E=20222023")
     data = res.body
     Record.create({cache_id: i, record_type: 2, store: data})
   end
