@@ -63,6 +63,6 @@ end
 
 raw_data.each do |row|
   player = process_doms_data(row, true)
-  player.year = 2022
+  player.year = 2023
   player.save if player
 end

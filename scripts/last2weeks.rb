@@ -1,12 +1,12 @@
 require "csv"
 
-data1 = CSV.parse(File.read("2022/pool_20230203.csv"), headers: false)
+data1 = CSV.parse(File.read("2023/pool_20230905.csv"), headers: false)
 data2 = CSV.parse(File.read("export.csv"), headers: false)
 
 data_new = data2.each do |player|
   corresponding_player = data1.filter{|pl| pl[0] == player[0]}.first
   if corresponding_player && corresponding_player[2]
-    player[4] = corresponding_player[4]
+    player[4] ||= corresponding_player[4]
     player[5] = corresponding_player[2]
     player[6] = player[2].to_f - player[5].to_f
   end

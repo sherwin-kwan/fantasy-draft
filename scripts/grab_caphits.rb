@@ -14,7 +14,7 @@ require "active_record"
 #   end
 #   doc = Nokogiri::HTML(res.body)
 #   # Scrape for "Cap Hit: $8,000,000" on the player's page
-#   caphit_string = doc.css('div.ofh > div.c').first
+#   caphit_string = doc.css('div.p10 > div.c').first
 #   if caphit_string
 #     player.aav = caphit_string.text.split("$").last.gsub(",", "").to_i
 #     player.save
