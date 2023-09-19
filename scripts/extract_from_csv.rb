@@ -42,7 +42,6 @@ def process_doms_data(player_data, overwrite)
   output.pos = parse_position(player_data["POS"])
   output.gp = player_data["GP"]
   output.toi = player_data["TOI"]
-  output.pptoi = player_data["PPTOI"]
   if output.pos == "goalie"
     output.wins = player_data["W"]
     output.shutouts = player_data["SO"]
@@ -57,6 +56,7 @@ def process_doms_data(player_data, overwrite)
     output.plus_minus = player_data["+/-"]
     output.fow = player_data["FOW"]
     output.fol = player_data["FOL"]
+    output.shp = player_data["SHP"]
   end
   output
 end

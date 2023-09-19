@@ -77,12 +77,14 @@ class Player
       return 0.23
     when 7
       return 0.3
+    else
+      return 0
     end
   end
 
   class << self
     def calculate_role_points
-      Player.find_each do |player|
+      Player.this_year.find_each do |player|
         player.calculate_role_points
         player.save
       end
@@ -92,8 +94,8 @@ class Player
       {
         first_line_average: 10,
         third_line_average: 5,
-        fourth_line_average: 5,
-        first_pair_average: 3,
+        fourth_line_average: 4,
+        first_pair_average: 4,
         second_pair_average: 3,
         third_pair_average: 3,
         goalie_average: 3
@@ -112,10 +114,6 @@ class Player
     }
     end
 
-    def overall_score
-      Player.above_repl_array.map{|role| self.send(role)}.max
-    end
-
     # Find the real replacement level for each position
     # Set that replacement level
     # Iterate
@@ -128,8 +126,8 @@ class Player
         the_role = Role.new({name: role, spots: self.role_positions[role.to_sym], replacement_level: self.replacement_level_init[role.to_sym]})
         roles_array.push(the_role)
       end
-      100.times do
-        Player.all.find_each do |player|
+      50.times do
+        Player.this_year.find_each do |player|
           player.points_above_repl = -100 # Default to drop players to the bottom of the list for positions they don't play
           roles_array.each do |role|
             raw_score = player.send(role.name)

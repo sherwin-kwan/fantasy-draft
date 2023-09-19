@@ -4,7 +4,7 @@ require "active_record"
 
 # Disabled for now. Uncomment lines below to enable caphit scraping
 # counter = 0
-# Player.caphit_missing.find_each do |player|
+# Player.caphit_missing.this_year.find_each do |player|
 #   player_url = "https://www.capfriendly.com/players/#{player.capfriendly_case}"
 #   begin
 #     res = Faraday.get(player_url)

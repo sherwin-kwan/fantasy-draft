@@ -43,18 +43,18 @@ end
 end
 
 # Ice time and shorthanded points
-Player.where('nhl_id IS NOT NULL and shp IS NULL').find_each do |player|
+Player.where('nhl_id IS NOT NULL and pptoi IS NULL and pos <> 2').find_each do |player|
   res = Faraday.get("https://statsapi.web.nhl.com/api/v1/people/#{player.nhl_id}/stats?stats=statsSingleSeason&season=20222023")
   data = JSON.parse(res.body)
   stats = data["stats"].first["splits"]&.first&.[]("stat")
   if stats
     player.pptoi ||= stats["powerPlayTimeOnIcePerGame"]&.parse_interval
-    player.shtoi = stats["shortHandedTimeOnIcePerGame"]&.parse_interval
+    player.shtoi ||= stats["shortHandedTimeOnIcePerGame"]&.parse_interval
     # player.estoi ||= stats["evenTimeOnIcePerGame"]&.parse_interval
     if player.toi && player.pptoi && player.shtoi
       player.estoi = player.toi - player.pptoi - player.shtoi
     end
-    player.shp = stats["shortHandedPoints"].to_f / stats["games"]
+    # player.shp = stats["shortHandedPoints"].to_f / stats["games"]
     player.save
   end
 end
