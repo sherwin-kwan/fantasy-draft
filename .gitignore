@@ -6,7 +6,7 @@ database.yml
 *.xlsx
 **/*.csv
 **/*.csv#
-.DS_Store
+*.DS_Store
 *.odt
 *.ods
 *.xls
@@ -17,3 +17,4 @@ database.yml
 *.png
 *.jpg
 *.png
+*.odt#
