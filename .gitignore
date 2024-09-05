@@ -1,5 +1,6 @@
 database.yml
 .env
+*.tmp
 *.csv
 *.csv#
 *.ods
