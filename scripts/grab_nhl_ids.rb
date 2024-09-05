@@ -4,19 +4,31 @@ require "active_record"
 require "pry"
 
 Player.where(year: nil).destroy_all 
-res = Faraday.get("https://statsapi.web.nhl.com/api/v1/teams?expand=team.roster")
+
+# Get list of all teams's 3-letter abbreviations
+res = Faraday.get("https://api.nhle.com/stats/rest/en/team")
 data = JSON.parse(res.body)
+teams = data["data"].map{_1["triCode"]}
 players = []
-data["teams"].each do |team|
-  players_on_team = team["roster"]["roster"].map do |person|
-    { first_name: person["person"]["fullName"].split(" ").first,
-     last_name: person["person"]["fullName"].split(" ").slice(1..-1).join(" "),
-     team: team["abbreviation"],
-     nhl_id: person["person"]["id"] }
+
+teams.each do |team|
+  puts "doing #{team}"
+  res = Faraday.get("https://api-web.nhle.com/v1/roster/#{team}/current")
+  next if res.status != 200
+  data = JSON.parse(res.body)
+  roster = (team["forwards"] + team["defensemen"] + team["goalies"])
+  roster.each do |player|
+    players << {
+      first_name: player["firstName"]["default"],
+      last_name: player["lastName"]["default"],
+      team: team,
+      nhl_id: player["playerId"]
+    }
   end
-  players.concat(players_on_team)
 end
-Player.where(nhl_id: nil, year: 2023).each do |player|
+
+
+Player.where(nhl_id: nil, year: 2024).each do |player|
   try_player = players.filter { |pl| pl[:first_name].downcase == player.first_name.downcase && pl[:last_name].downcase == player.last_name.downcase }&.first
   # Handle players with variant first names (e.g. "Mitch" vs. "Mitchell") - if there's only one player with that last name it's not ambiguous
   if !try_player

@@ -1,7 +1,7 @@
 require "csv"
 require "./models/player.rb"
 
-source_file = File.join(File.dirname(__FILE__), "../projections/projections_20240307.csv")
+source_file = File.join(File.dirname(__FILE__), "../projections/projections_20240904.csv")
 raw_data = CSV.parse(File.read(source_file), headers: true)
 
 def parse_position(str)
@@ -63,6 +63,6 @@ end
 
 raw_data.each do |row|
   player = process_doms_data(row, true)
-  player.year = 2023
+  player.year = 2024
   player.save if player
 end

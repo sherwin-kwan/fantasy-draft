@@ -37,46 +37,34 @@ ActiveRecord::Schema.define do
     t.float :shutouts
     t.float :ga
     t.float :sv
-  end
-
-  change_table :players do |t|
-    t.float :aav, if_not_exists: true
-  end
-
-  change_table :players do |t|
-    t.float :estoi, if_not_exists: true
-    t.float :pptoi, if_not_exists: true
-    t.float :shtoi, if_not_exists: true
-    t.string :year, if_not_exists: true
+    t.float :first_line_average
+    t.float :third_line_average
+    t.float :fourth_line_average
+    t.float :first_pair_average
+    t.float :second_pair_average
+    t.float :third_pair_average
+    t.float :goalie_average
+    t.float :first_line_above_repl
+    t.float :third_line_above_repl
+    t.float :fourth_line_above_repl
+    t.float :first_pair_above_repl
+    t.float :second_pair_above_repl
+    t.float :third_pair_above_repl
+    t.float :goalie_above_repl
+    t.integer :role
+    t.float :points_above_repl
+    t.float :aav
+    t.float :estoi
+    t.float :pptoi
+    t.float :shtoi
+    t.string :year
+    t.string :team
   end
 
   create_table :records, if_not_exists: true do |t|
     t.integer :cache_id
     t.integer :record_type
     t.text :store
-  end
-
-  change_table :players do |t|
-    t.float :first_line_average, if_not_exists: true
-    t.float :third_line_average, if_not_exists: true
-    t.float :fourth_line_average, if_not_exists: true
-    t.float :first_pair_average, if_not_exists: true
-    t.float :second_pair_average, if_not_exists: true
-    t.float :third_pair_average, if_not_exists: true
-    t.float :goalie_average, if_not_exists: true
-    t.float :first_line_above_repl, if_not_exists: true
-    t.float :third_line_above_repl, if_not_exists: true
-    t.float :fourth_line_above_repl, if_not_exists: true
-    t.float :first_pair_above_repl, if_not_exists: true
-    t.float :second_pair_above_repl, if_not_exists: true
-    t.float :third_pair_above_repl, if_not_exists: true
-    t.float :goalie_above_repl, if_not_exists: true
-    t.integer :role, if_not_exists: true
-    t.float :points_above_repl, if_not_exists: true
-  end
-
-  change_table :players do |t|
-    t.string :team, if_not_exists: true
   end
 
 end

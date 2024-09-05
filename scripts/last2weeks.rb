@@ -1,6 +1,6 @@
 require "csv"
 
-data1 = CSV.parse(File.read("2023/pool_20240217.csv"), headers: false)
+data1 = CSV.parse(File.read("export.csv"), headers: false)
 data2 = CSV.parse(File.read("export.csv"), headers: false)
 
 data_new = data2.each do |player|
