@@ -1,7 +1,7 @@
 require "csv"
 require "pry"
 
-data1 = CSV.parse(File.read("./2024/pool_20240910.csv"), headers: false)
+data1 = CSV.parse(File.read("./export_enh.csv"), headers: false)
 data2 = CSV.parse(File.read("export.csv"), headers: false)
 
 data_new = data2.each do |player|
@@ -15,7 +15,7 @@ data_new = data2.each do |player|
   player[8] ||= 0
 end
 
-data_new.sort{|a, b| b[8].to_i <=> a[8].to_i}.each do |pl|
+data_new.sort{|a, b| b[8].to_f <=> a[8].to_f}.each do |pl|
   p pl
 end
 

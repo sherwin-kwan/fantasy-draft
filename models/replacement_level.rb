@@ -31,8 +31,8 @@ class Player
         self.shp ||= 0
         faceoff_score = [0, (self.fow - self.fol) * 0.5].max
         self.first_line_average = self.goals * 10.5 + self.assists * 10 + self.shots * 0.5 + self.shp * 10 + faceoff_score + ht_adjustment(self.goals)
-        self.third_line_average = self.goals * 6.5 + self.assists * 6 + self.shots * 0.25 + self.hits * 1.5 + self.blocks * 2 + self.tk * 2 - self.gv * 2 + self.shp * 10 + faceoff_score + ht_adjustment(self.goals)
-        self.fourth_line_average = self.goals * 2 + self.assists * 2 + self.hits * 2 + self.blocks * 2.5 + self.tk * 2.5 - self.gv * 2.5 + self.shp * 10 + faceoff_score * 1.5 + ht_adjustment(self.goals)
+        self.third_line_average = self.goals * 6.5 + self.assists * 6 + self.shots * 0.25 + self.hits * 1.5 + self.blocks * 2 + self.tk * 2 - self.gv * 4 + self.shp * 10 + faceoff_score + ht_adjustment(self.goals)
+        self.fourth_line_average = self.goals * 2 + self.assists * 2 + self.hits * 2 + self.blocks * 2.5 + self.tk * 2.5 - self.gv * 5 + self.shp * 10 + faceoff_score * 1.5 + ht_adjustment(self.goals)
         self.first_pair_average = self.second_pair_average = self.third_pair_average = self.goalie_average = -1
         self.save
       when "defence"
@@ -40,8 +40,8 @@ class Player
         self.gv ||= 0
         self.shp ||= 0
         self.first_pair_average = self.goals * 9.5 + self.assists * 10 + self.shots * 0.5 + self.hits * 1 + self.blocks * 1.5 + self.tk * 1.5 - self.gv * 1.5 + self.shp * 10 + ht_adjustment(self.goals)
-        self.second_pair_average = self.goals * 6.5 + self.assists * 6 + self.hits * 1.5 + self.blocks * 2 + self.tk * 2 - self.gv * 2 + self.shp * 10 + ht_adjustment(self.goals)
-        self.third_pair_average = self.goals * 2 + self.assists * 2 + self.hits * 2 + self.blocks * 2.5 + self.tk * 2.5 - self.gv * 2.5 + self.shp * 10 + ht_adjustment(self.goals)
+        self.second_pair_average = self.goals * 6.5 + self.assists * 6 + self.hits * 1.5 + self.blocks * 2 + self.tk * 2 - self.gv * 4 + self.shp * 10 + ht_adjustment(self.goals)
+        self.third_pair_average = self.goals * 2 + self.assists * 2 + self.hits * 2 + self.blocks * 2.5 + self.tk * 2.5 - self.gv * 5 + self.shp * 10 + ht_adjustment(self.goals)
         self.first_line_average = self.third_line_average = self.fourth_line_average = self.goalie_average = -1
         self.save
       when "goalie"
@@ -108,8 +108,8 @@ class Player
       third_line_average: 8,
       fourth_line_average: 7,
       first_pair_average: 10,
-      second_pair_average: 9,
-      third_pair_average: 10,
+      second_pair_average: 8,
+      third_pair_average: 8,
       goalie_average: 9
     }
     end
