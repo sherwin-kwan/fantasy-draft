@@ -19,16 +19,17 @@ end
   if Record.where(cache_id: i).where(record_type: "real_time").count > 0
     data = Record.where(cache_id: i).first.store
   else
-    res = Faraday.get("https://api.nhle.com/stats/rest/en/skater/realtime?isAggregate=false&isGame=false&sort=[{%22property%22:%22playerId%22,%22direction%22:%22ASC%22}]&start=#{(i * 100).to_s}&limit=100&factCayenneExp=gamesPlayed%3E=1&cayenneExp=gameTypeId=2%20and%20seasonId%3C=20232024%20and%20seasonId%3E=20232024")
+    res = Faraday.get("https://api.nhle.com/stats/rest/en/skater/realtime?isAggregate=false&isGame=false&sort=[{%22property%22:%22playerId%22,%22direction%22:%22ASC%22}]&start=#{(i * 100).to_s}&limit=100&factCayenneExp=gamesPlayed%3E=1&cayenneExp=gameTypeId=2%20and%20seasonId%3C=20242025%20and%20seasonId%3E=20242025")
     data = res.body
     Record.create({cache_id: i, record_type: "real_time", store: data})
   end
   data = JSON.parse(data)
   data["data"].each do |pl|
+    binding.pry if pl["playerId"] == "8476468"
     player = Player.where(nhl_id: pl["playerId"].to_i).first
     # Correct for issues e.g. if a player can't be found in NHL database due to being sent to minors or on injured reserve
     if !player
-      player = Player.where(first_name: pl["skaterFullName"].split(" ")[0]).where(last_name: pl["skaterFullName"].split(" ")[1]).first
+      player = Player.where(first_name: pl["skaterFullName"].split(" ")[0]).where(last_name: pl["skaterFullName"].split(" ")[1..-1].join(" ")).first
       player.nhl_id = pl["playerId"] if player
     end
     if player
@@ -57,7 +58,7 @@ end
     player = Player.where(nhl_id: pl["playerId"].to_i).first
     # Correct for issues e.g. if a player can't be found in NHL database due to being sent to minors or on injured reserve
     if !player
-      player = Player.where(first_name: pl["skaterFullName"].split(" ")[0]).where(last_name: pl["skaterFullName"].split(" ")[1]).first
+      player = Player.where(first_name: pl["skaterFullName"].split(" ")[0]).where(last_name: pl["skaterFullName"].split(" ")[1..-1].join(" ")).first
       player.nhl_id = pl["playerId"] if player
     end
     if player
@@ -88,7 +89,7 @@ Record.where(record_type: "faceoffs").destroy_all
     player = Player.where(nhl_id: pl["playerId"].to_i).first
     # Correct for issues e.g. if a player can't be found in NHL database due to being sent to minors or on injured reserve
     if !player
-      player = Player.where(first_name: pl["skaterFullName"].split(" ")[0]).where(last_name: pl["skaterFullName"].split(" ")[1]).first
+      player = Player.where(first_name: pl["skaterFullName"].split(" ")[0]).where(last_name: pl["skaterFullName"].split(" ")[1..-1].join(" ")).first
       player.nhl_id = pl["playerId"] if player
     end
     if player

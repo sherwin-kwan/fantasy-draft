@@ -2,7 +2,7 @@ require "csv"
 require "./models/player.rb"
 require "pry"
 
-source_file = File.join(File.dirname(__FILE__), "../projections/projections_20241029.csv")
+source_file = File.join(File.dirname(__FILE__), "../projections/projections_20250127.csv")
 raw_data = CSV.parse(File.read(source_file), headers: true)
 
 def parse_position(str)
@@ -29,6 +29,9 @@ def parse_position(str)
     raise "There is no valid position"
   end
 end
+
+# Issues:
+# Maccelli, St. Ivany, Dumba, DeMelo, DeBrincat, Romanov, Wennberg, Novak, Borgen, Carrier, Gustafsson, DeBrusk, Weegar, Middleton, K'Andre Miller
 
 def process_doms_data(player_data, overwrite)
   first_name = player_data["NAME"].split(" ").first
