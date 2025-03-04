@@ -2,5 +2,5 @@ require "active_record"
 
 class Record < ActiveRecord::Base
 
-  enum record_type: [:real_time, :toi, :faceoffs] 
+  enum :record_type, [:real_time, :toi, :faceoffs] 
 end

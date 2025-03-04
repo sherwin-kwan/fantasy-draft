@@ -1,7 +1,7 @@
 require "csv"
 require "pry"
 
-data1 = CSV.parse(File.read("./2024/pool_20250113.csv"), headers: false)
+data1 = CSV.parse(File.read("./2024/pool_20250301.csv"), headers: false)
 data2 = CSV.parse(File.read("export.csv"), headers: false)
 
 data_new = data2.each do |player|

@@ -2,8 +2,8 @@ require "active_record"
 
 class Player < ActiveRecord::Base
 
-  enum pos: {forward: 0, defence: 1, goalie: 2, rover: 3}
-  enum role: {:first_line_average => 0,
+  enum :pos, {forward: 0, defence: 1, goalie: 2, rover: 3}
+  enum :role, {:first_line_average => 0,
     :third_line_average => 1,
     :fourth_line_average => 2,
     :first_pair_average => 3,
