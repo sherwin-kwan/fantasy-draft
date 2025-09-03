@@ -15,7 +15,7 @@ class Player < ActiveRecord::Base
     all.where('aav IS NULL')
   }
   scope :this_year, -> {
-    all.where(year: 2024)
+    all.where(year: 2025)
   }
 
   def capfriendly_case

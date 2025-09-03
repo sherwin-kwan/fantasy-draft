@@ -39,7 +39,7 @@ class Player
         self.tk ||= 0
         self.gv ||= 0
         self.shp ||= 0
-        self.first_pair_average = self.goals * 9.5 + self.assists * 10 + self.shots * 0.5 + self.hits * 1 + self.blocks * 1.5 + self.tk * 1.5 - self.gv * 1.5 + self.shp * 10 + ht_adjustment(self.goals)
+        self.first_pair_average = self.goals * 9.5 + self.assists * 9 + self.shots * 0.5 + self.hits * 1 + self.blocks * 1.5 + self.tk * 1.5 - self.gv * 1.5 + self.shp * 10 + ht_adjustment(self.goals)
         self.second_pair_average = self.goals * 6.5 + self.assists * 6 + self.hits * 1.5 + self.blocks * 2 + self.tk * 2 - self.gv * 2 + self.shp * 10 + ht_adjustment(self.goals)
         self.third_pair_average = self.goals * 2 + self.assists * 2 + self.hits * 2 + self.blocks * 2.5 + self.tk * 2.5 - self.gv * 2.5 + self.shp * 10 + ht_adjustment(self.goals)
         self.first_line_average = self.third_line_average = self.fourth_line_average = self.goalie_average = -1
@@ -50,7 +50,7 @@ class Player
         self.save
       when "rover"
         faceoff_score = [0, (self.fow - self.fol) * 0.5].max
-        self.first_line_average = self.goals * 10.5 + self.assists * 10 + self.shots * 0.5 + self.shp * 10 + faceoff_score + ht_adjustment(self.goals)
+        self.first_line_average = self.goals * 10.5 + self.assists * 9 + self.shots * 0.5 + self.shp * 10 + faceoff_score + ht_adjustment(self.goals)
         self.third_line_average = self.goals * 6.5 + self.assists * 5 + self.shots * 0.25 + self.hits * 1.5 + self.blocks * 2 + self.tk * 2 - self.gv * 2 + self.shp * 10 + faceoff_score + ht_adjustment(self.goals)
         self.fourth_line_average = self.goals * 2 + self.assists * 2 + self.hits * 2 + self.blocks * 2.5 + self.tk * 2.5 - self.gv * 2.5 + self.shp * 10 + faceoff_score + ht_adjustment(self.goals)
         self.first_pair_average = self.goals * 9.5 + self.assists * 10 + self.shots * 0.5 + self.hits * 0.5 + self.blocks * 1 + self.tk * 1 - self.gv * 1 + self.shp * 10 + ht_adjustment(self.goals)
@@ -118,7 +118,7 @@ class Player
     # Set that replacement level
     # Iterate
 
-    def calculate_ratings(redo_scores = false)
+    def calculate_ratings(redo_scores = true)
       self.calculate_role_points if redo_scores
       roles_array = []
       # self.roles pulls the roles enum defined in player.rb
@@ -129,6 +129,10 @@ class Player
       50.times do
         Player.this_year.find_each do |player|
           player.points_above_repl = -100 # Default to drop players to the bottom of the list for positions they don't play
+          if !player.first_line_average
+              puts "No scores for #{player.first_name} #{player.last_name}"
+              next
+            end
           roles_array.each do |role|
             raw_score = player.send(role.name)
             begin
@@ -155,7 +159,7 @@ class Player
     def iterate_replacement_levels(roles_array)
       good_enough = true
       roles_array.each do |role|
-        players_in_this_role = Player.where(role: role.name).order(points_above_repl: :desc)
+        players_in_this_role = Player.this_year.where(role: role.name).order(points_above_repl: :desc)
         # Let's say there are 4 spots for first line wingers. Then 32 players will be claimed above replacement level for this position. 
         # Find the score of the 33rd player to determine a new guess for replacement level.
         puts "For role #{role.name}, there are #{players_in_this_role.where("points_above_repl > 0").length.to_s} players above replacement"

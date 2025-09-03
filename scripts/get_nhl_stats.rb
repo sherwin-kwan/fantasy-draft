@@ -49,7 +49,7 @@ end
   if Record.where(cache_id: i).where(record_type: "toi").count > 0
     data = Record.find_by(cache_id: i, record_type: "toi").store
   else
-    res = Faraday.get("https://api.nhle.com/stats/rest/en/skater/timeonice?isAggregate=false&isGame=false&sort=[{%22property%22:%22timeOnIce%22,%22direction%22:%22DESC%22},{%22property%22:%22playerId%22,%22direction%22:%22ASC%22}]&start=0&limit=100&cayenneExp=gameTypeId=2%20and%20seasonId%3C=20232024%20and%20seasonId%3E=20232024")
+    res = Faraday.get("https://api.nhle.com/stats/rest/en/skater/timeonice?isAggregate=false&isGame=false&sort=[{%22property%22:%22timeOnIce%22,%22direction%22:%22DESC%22},{%22property%22:%22playerId%22,%22direction%22:%22ASC%22}]&start=0&limit=100&cayenneExp=gameTypeId=2%20and%20seasonId%3C=20242025%20and%20seasonId%3E=20242025")
     data = res.body
     Record.create({cache_id: i, record_type: "toi", store: data})
   end
@@ -80,7 +80,7 @@ Record.where(record_type: "faceoffs").destroy_all
   if Record.where(cache_id: i).where(record_type: "faceoffs").count > 0
     data = Record.find_by(cache_id: i, record_type: "faceoffs").store
   else
-    res = Faraday.get("https://api.nhle.com/stats/rest/en/skater/faceoffwins?isAggregate=false&isGame=false&sort=[{%22property%22:%22playerId%22,%22direction%22:%22ASC%22}]&start=#{(i * 100).to_s}&limit=100&factCayenneExp=gamesPlayed%3E=1&cayenneExp=gameTypeId=2%20and%20seasonId%3C=20232024%20and%20seasonId%3E=20232024")
+    res = Faraday.get("https://api.nhle.com/stats/rest/en/skater/faceoffwins?isAggregate=false&isGame=false&sort=[{%22property%22:%22playerId%22,%22direction%22:%22ASC%22}]&start=#{(i * 100).to_s}&limit=100&factCayenneExp=gamesPlayed%3E=1&cayenneExp=gameTypeId=2%20and%20seasonId%3C=20242025%20and%20seasonId%3E=20242025")
     data = res.body
     Record.create({cache_id: i, record_type: "faceoffs", store: data})
   end
