@@ -18,7 +18,7 @@ end
 
 class Player
 
-  NUM_MANAGERS = 6
+  NUM_MANAGERS = 10
 
   def calculate_role_points
     begin
@@ -29,24 +29,24 @@ class Player
         self.tk ||= 0
         self.gv ||= 0
         self.shp ||= 0
-        faceoff_score = [0, (self.fow - self.fol) * 0.5].max
-        self.first_line_average = self.goals * 10.5 + self.assists * 10 + self.shots * 0.5 + self.shp * 10 + faceoff_score + ht_adjustment(self.goals)
-        self.third_line_average = self.goals * 6.5 + self.assists * 6 + self.shots * 0.25 + self.hits * 1.5 + self.blocks * 2 + self.tk * 2 - self.gv * 2 + self.shp * 10 + faceoff_score + ht_adjustment(self.goals)
-        self.fourth_line_average = self.goals * 2 + self.assists * 2 + self.hits * 2 + self.blocks * 2.5 + self.tk * 2.5 - self.gv * 2.5 + self.shp * 10 + faceoff_score * 1.5 + ht_adjustment(self.goals)
+        faceoff_score = 0
+        self.first_line_average = self.goals * 4 + self.assists * 2.5 + self.shots * 0.5 + self.hits * 0.4 + self.blocks * 0.6 + self.shp * 1 + ht_adjustment(self.goals)
+        # self.third_line_average = self.goals * 6.5 + self.assists * 6 + self.shots * 0.25 + self.hits * 1.5 + self.blocks * 2 + self.tk * 2 - self.gv * 2 + self.shp * 10 + faceoff_score + ht_adjustment(self.goals)
+        # self.fourth_line_average = self.goals * 2 + self.assists * 2 + self.hits * 2 + self.blocks * 2.5 + self.tk * 2.5 - self.gv * 2.5 + self.shp * 10 + faceoff_score * 1.5 + ht_adjustment(self.goals)
         self.first_pair_average = self.second_pair_average = self.third_pair_average = self.goalie_average = -1
         self.save
       when "defence"
         self.tk ||= 0
         self.gv ||= 0
         self.shp ||= 0
-        self.first_pair_average = self.goals * 9.5 + self.assists * 9 + self.shots * 0.5 + self.hits * 1 + self.blocks * 1.5 + self.tk * 1.5 - self.gv * 1.5 + self.shp * 10 + ht_adjustment(self.goals)
-        self.second_pair_average = self.goals * 6.5 + self.assists * 6 + self.hits * 1.5 + self.blocks * 2 + self.tk * 2 - self.gv * 2 + self.shp * 10 + ht_adjustment(self.goals)
-        self.third_pair_average = self.goals * 2 + self.assists * 2 + self.hits * 2 + self.blocks * 2.5 + self.tk * 2.5 - self.gv * 2.5 + self.shp * 10 + ht_adjustment(self.goals)
+        self.first_pair_average = self.goals * 4 + self.assists * 2.5 + self.shots * 0.5 + self.hits * 0.4 + self.blocks * 0.6 + self.shp * 1 + ht_adjustment(self.goals)
+        # self.second_pair_average = self.goals * 6.5 + self.assists * 6 + self.hits * 1.5 + self.blocks * 2 + self.tk * 2 - self.gv * 2 + self.shp * 10 + ht_adjustment(self.goals)
+        # self.third_pair_average = self.goals * 2 + self.assists * 2 + self.hits * 2 + self.blocks * 2.5 + self.tk * 2.5 - self.gv * 2.5 + self.shp * 10 + ht_adjustment(self.goals)
         self.first_line_average = self.third_line_average = self.fourth_line_average = self.goalie_average = -1
         self.save
       when "goalie"
-        self.goalie_average = self.sv - self.ga * 7 + self.wins * 5 + self.shutouts * 10
-        self.first_pair_average = self.second_pair_average = self.third_pair_average = self.first_line_average = self.third_line_average = self.fourth_line_average = -1
+        self.goalie_average = self.sv * 0.25 - self.ga * 2 + self.wins * 4 + self.shutouts * 5
+        # self.first_pair_average = self.second_pair_average = self.third_pair_average = self.first_line_average = self.third_line_average = self.fourth_line_average = -1
         self.save
       when "rover"
         faceoff_score = [0, (self.fow - self.fol) * 0.5].max
@@ -92,25 +92,25 @@ class Player
 
     def role_positions
       {
-        first_line_average: 10,
-        third_line_average: 5,
-        fourth_line_average: 4,
-        first_pair_average: 4,
-        second_pair_average: 3,
-        third_pair_average: 3,
+        first_line_average: 9,
+        third_line_average: 0,
+        fourth_line_average: 0,
+        first_pair_average: 5,
+        second_pair_average: 0,
+        third_pair_average: 0,
         goalie_average: 3
       }
     end
 
     def replacement_level_init
     {
-      first_line_average: 10,
-      third_line_average: 8,
-      fourth_line_average: 7,
-      first_pair_average: 10,
-      second_pair_average: 7,
-      third_pair_average: 7,
-      goalie_average: 8
+      first_line_average: 5,
+      third_line_average: 0,
+      fourth_line_average: 0,
+      first_pair_average: 3,
+      second_pair_average: 0,
+      third_pair_average: 0,
+      goalie_average: 3
     }
     end
 
