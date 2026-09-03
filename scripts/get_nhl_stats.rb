@@ -25,7 +25,6 @@ end
   end
   data = JSON.parse(data)
   data["data"].each do |pl|
-    binding.pry if pl["playerId"] == "8476468"
     player = Player.where(nhl_id: pl["playerId"].to_i).first
     # Correct for issues e.g. if a player can't be found in NHL database due to being sent to minors or on injured reserve
     if !player

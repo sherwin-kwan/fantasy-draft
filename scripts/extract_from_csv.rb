@@ -2,7 +2,7 @@ require "csv"
 require "./models/player.rb"
 require "pry"
 
-source_file = File.join(File.dirname(__FILE__), "../projections/projections_20250902.csv")
+source_file = File.join(File.dirname(__FILE__), "../projections/projections_20260831.csv")
 raw_data = CSV.parse(File.read(source_file), headers: true)
 
 def parse_position(str)
@@ -31,14 +31,15 @@ def parse_position(str)
 end
 
 # Issues:
-# Maccelli, St. Ivany, Dumba, DeMelo, DeBrincat, Romanov, Wennberg, Novak, Borgen, Carrier, Gustafsson, DeBrusk, Weegar, Middleton, K'Andre Miller
+# Macceli, Peterka, St. Ivany, Dumba, DeAngelo, DeMelo, DeBrincat, Romanov, Nikishin, Wennberg, Novak, Borgen, A. Carrier, Gustafsson, DeBrusk, Weegar, Middleton, K'Andre Miller
 
 def process_doms_data(player_data, overwrite)
   first_name = player_data["NAME"].split(" ").first
   last_name = player_data["NAME"].split(" ").slice(1..-1).join(" ")
   # If the player already exists in the db, overwrite them unless asked not to
   try_player = Player.where(first_name: first_name).where(last_name: last_name).first
-  return if try_player && !overwrite || !player_data["POS"]
+  return if try_player && !overwrite
+  raise "Player position is missing" if !player_data["POS"]
   output = try_player || Player.new
   output.first_name = first_name
   output.last_name = last_name
@@ -66,7 +67,11 @@ def process_doms_data(player_data, overwrite)
 end
 
 raw_data.each do |row|
+  next if !row["NAME"]
   player = process_doms_data(row, true)
-  player.year = 2025
-  player.save if player
+  if player.present?
+    player.update(year: 2026)
+  else
+    puts "Player not found: #{row["NAME"]}"
+  end
 end

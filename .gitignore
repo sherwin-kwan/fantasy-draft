@@ -13,6 +13,8 @@ database.yml
 *.xls
 *.xlsx
 *.xlsx#
+*.docx
+*.docx#
 *.ods#
 *.xls#
 *.png
